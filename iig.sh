@@ -1,12 +1,14 @@
 #!/bin/bash
 # Developed by MOHSEN
 
-echo 'Welcome to Iran Internet Ghost'
+PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
 
 BANNER='IIG	|	Version 1.0	|	MOHSEN MOTTAGHI		twitter.com/motmohsen'
 DISTRO=`lsb_release -i |cut -f 2`
 DISTRO_RELEASE=`lsb_release -r |cut -f 2`
 FILE_DNS_SERVER='/tmp/cloudflared-stable-linux-amd64.deb'
+
+echo 'Welcome to Iran Internet Ghost - IIG'
 
 function debian_base {
 	if [ ! -f "$FILE_DNS_SERVER" ]
@@ -22,34 +24,39 @@ function debian_base {
 	if ! [ -x "$(command -v cloudflared)" ]
 		then
 			echo '[+] Start Installing'
-			dpkg -i /tmp/cloudflared-stable-linux-amd64.deb
+			sudo dpkg -i /tmp/cloudflared-stable-linux-amd64.deb
 			echo '[+] Done.'
 	fi
 }
 
 function start_dns_server {
-	cloudflared proxy-dns &
+	sudo cloudflared proxy-dns &
 	cp /etc/resolv.conf /tmp/resolv.conf
-	echo 'nameserver 127.0.0.1' > /etc/resolv.conf
+	sudo echo 'nameserver 127.0.0.1' > /etc/resolv.conf
 }
 
 function setup_network {
 	DEVICE=`ip route list | grep default | awk '{print $5}'`
-	ip link set dev $DEVICE mtu 400
+	sudo ip link set dev $DEVICE mtu 400
 }
 
 function recovery {
 	echo '[+] Start to Recovery'
 	DEVICE=`ip route list | grep default | awk '{print $5}'`
-	ip link set dev $DEVICE mtu 1400
-	cp /tmp/resolv.conf /etc/resolv.conf
+	sudo ip link set dev $DEVICE mtu 1400
+	sudo cp /tmp/resolv.conf /etc/resolv.conf
 	echo '[+] Done.'	
 }
 
 function uninstall {
 	echo '[+] Start unistall packages.'
-	dpkg --remove cloudflared
+	sudo dpkg --remove cloudflared
 	echo '[+] Done'
+	echo '[+] Stop Processes'
+	sudo -15 `ps aux |grep "cloudflared proxy-dns" | grep -v grep | awk '{print $2}'`
+	echo '[+] Process Killed'
+	echo '[+] strat Recovery'
+	recovery
 }
 
 function help {
@@ -63,15 +70,21 @@ function help {
 	echo '		recovery  , --recovery		For recovery network setting to original setting'  
 }
 
-function main {
+function main_func {
 	case $DISTRO in
 	
 		'Ubuntu')
-			echo '[+] You will be a Ghost after a while :)'
-			debian_base
-			start_dns_server
-			setup_network
+			if [ "$DISTRO_RELEASE" == "18.04" ]
+			then
+				echo '[+] You will be a Ghost after a while :)'
+				debian_base
+				start_dns_server
+				setup_network
+			else
+				echo 'We don`t support now, you can develop and ...'
+			fi
 			;;
+
 		*)
 			echo 'We don`t support now, you can develop and ...'
 			exit
@@ -82,7 +95,7 @@ function main {
 case $1 in
 
 	'install' | 'ghost' | '--install' | '--ghost' )
-		main
+		main_func
 		exit
 		;;
 
