@@ -85,6 +85,18 @@ function main_func {
 			fi
 			;;
 
+                'Kali')
+                        if [ "$DISTRO_RELEASE" == "2019.2" ]
+                        then
+                                echo '[+] You will be a Ghost after a while :)'
+                                debian_base
+                                start_dns_server
+                                setup_network
+                        else
+                                echo 'We don`t support now, you can develop and ...'
+                        fi
+                        ;;
+
 		*)
 			echo 'We don`t support now, you can develop and ...'
 			exit

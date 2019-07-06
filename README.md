@@ -6,6 +6,15 @@ This is funny project for bypass IPSs with packet fragmentation.
 In some countries, Internet ISPs try to use DNS Spoofing techniques to prevent access to websites that are hosted jointly and they can`t block their IP address.
 That's why we try to get the actual destination address by getting through the DNS over HTTPS first and then our traffic forwarded through IPSs with Packet Fragmentation.
 
+# Supported Linux Distro:
+| Distro| Status |
+|--|--|
+|Ubuntu 18.04 LTS| ✅ |
+| Ubuntu 16.04 LTS | ❓ |
+|Kali Linux 2019.2|✅|
+|Debian 9| ❓
+
+
 # How to use
 First set permission on script file to be executable:
 ```
