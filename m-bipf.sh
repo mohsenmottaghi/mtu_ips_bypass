@@ -66,7 +66,7 @@ function help {
 	echo '		 '
 	echo '		install   , --install		For installing tools and configure network'
 	echo ' 		ghost 	  , --ghost		same function as "install"'
-	echo ' 		uninstall , --unistall		For uninstall DNS over HTTPS software'
+	echo ' 		uninstall , --uninstall		For uninstall DNS over HTTPS software'
 	echo '		recovery  , --recovery		For recovery network setting to original setting'  
 }
 
@@ -111,7 +111,7 @@ case $1 in
 		exit
 		;;
 
-	'uninstall' | '--unistall')
+	'uninstall' | '--uninstall')
 		uninstall
 		exit
 		;;
