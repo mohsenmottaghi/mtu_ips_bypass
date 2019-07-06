@@ -1,14 +1,14 @@
 #!/bin/bash
-# Developed by MOHSEN
+# Bypass IPSs with Packet Fragmentation | Developed by MOHSEN
 
-PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
+PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
 
-BANNER='IIG	|	Version 1.0	|	MOHSEN MOTTAGHI		twitter.com/motmohsen'
+BANNER='BIPF	|	Version 1.0	|	MOHSEN MOTTAGHI		twitter.com/motmohsen'
 DISTRO=`lsb_release -i |cut -f 2`
 DISTRO_RELEASE=`lsb_release -r |cut -f 2`
 FILE_DNS_SERVER='/tmp/cloudflared-stable-linux-amd64.deb'
 
-echo 'Welcome to Iran Internet Ghost - IIG'
+echo 'Welcome to M-BIPF'
 
 function debian_base {
 	if [ ! -f "$FILE_DNS_SERVER" ]
