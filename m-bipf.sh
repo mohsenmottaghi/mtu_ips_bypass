@@ -53,7 +53,7 @@ function uninstall {
 	sudo dpkg --remove cloudflared
 	echo '[+] Done'
 	echo '[+] Stop Processes'
-	sudo -15 `ps aux |grep "cloudflared proxy-dns" | grep -v grep | awk '{print $2}'`
+	sudo kill -15 `ps aux |grep "cloudflared proxy-dns" | grep -v grep | awk '{print $2}'`
 	echo '[+] Process Killed'
 	echo '[+] strat Recovery'
 	recovery
