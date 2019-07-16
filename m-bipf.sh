@@ -55,7 +55,7 @@ main_func() {
 	case `lsb_release -i |cut -f 2` in
 	
 		'Ubuntu' | 'Kali')
-			if [ "`lsb_release -r |cut -f 2`" == "18.04" ]
+			if [ "`lsb_release -r |cut -f 2`" == "18.04" ] | [ "`lsb_release -r |cut -f 2`" == "2019.2" ]
 			then
 				debian_base && start
 			else
